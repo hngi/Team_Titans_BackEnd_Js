@@ -4,6 +4,10 @@ const auth = require("../middlewares/jwt");
 var mongoose = require("mongoose");
 mongoose.set("useFindAndModify", false);
 
+const accountSid = 'Twilio account sid';
+const authToken = 'Twilio auth token';
+const client = require('twilio')(accountSid, authToken);
+
 /**
  * Retrieve Account Balance.
  *
@@ -11,7 +15,7 @@ mongoose.set("useFindAndModify", false);
  */
 exports.getAccountBalance = [
   function (req, res) {
-    try {
+    try { 
     } catch (err) {
       //throw error in json response with status 500.
       return apiResponse.ErrorResponse(res, err);
@@ -29,6 +33,14 @@ exports.getAccountBalance = [
 exports.sendSms = [
   function (req, res) {
     try {
+      //Setup Twilo and send message
+      client.messages.create({
+        body: 'This is a test text',
+        from: 'test twilio phone number',
+        to: request.params.phone
+      })
+       .then(message => console.log(message.sid));
+       res.sendStatus(200);
     } catch (err) {
       //throw error in json response with status 500.
       return apiResponse.ErrorResponse(res, err);
