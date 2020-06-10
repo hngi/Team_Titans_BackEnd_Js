@@ -4,8 +4,8 @@ const auth = require("../middlewares/jwt");
 var mongoose = require("mongoose");
 mongoose.set("useFindAndModify", false);
 
-const accountSid = 'Twilio account sid';
-const authToken = 'Twilio auth token';
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 
 /**
@@ -36,7 +36,7 @@ exports.sendSms = [
       //Setup Twilo and send message
       client.messages.create({
         body: 'This is a test text',
-        from: 'test twilio phone number',
+        from: process.env.TWILIO_ACCOUNT_SID,
         to: request.params.phone
       })
        .then(message => console.log(message.sid));
