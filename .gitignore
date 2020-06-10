@@ -1,1 +1,7 @@
 node_modules/
+
+#misc
+.env.TWILIO_ACCOUNT_Sid
+.env.TWILIO_AUTH_TOKEN
+
+
