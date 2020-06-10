@@ -5,14 +5,14 @@ To Contribute...
 1. Create a personal fork of this repo on your Github.
 
 2. Clone the fork on your local machine (pc) .
-	using "git clone url of the repo."
- Once you have cloned your remote on Github is called origin.
+   using "git clone url of the repo."
+   Once you have cloned your remote on Github is called origin.
 
-3. On your local machine (pc) inside the cloned 	  project, add the origin repository as a remote called upstream.
-i.e git remote add upstream url of the repo.
+3. On your local machine (pc) inside the cloned project, add the origin repository as a remote called upstream.
+   i.e git remote add upstream url of the repo.
 
 4. Create a new branch to work on. Branch from the master branch. It is recommended that you make a new branch for every new feature you work on and work from there.
-You can use "git checkout -b name of new brach" shorthand to create a new brach and switch to it .
+   You can use "git checkout -b name of new brach" shorthand to create a new brach and switch to it .
 
 5. Push your branch to your fork Github, i.e the remote origin.
 
@@ -21,42 +21,29 @@ You can use "git checkout -b name of new brach" shorthand to create a new brach 
 7. Be sure to always pull upstream changes into your local repository to keep updates of the main repo.
 
 "git pull upstream branch_name" which is the main branch (master).
-  
 
-  These are the set of instructions from Mark.
+These are the set of instructions from Mark.
 
-  Try and always:
+Try and always:
+
 8. Comment your codes properly.
 
 9. Follow the code style of the project including indentation.
 
-GOOD LUCK... 
-
+GOOD LUCK...
 
 ## Getting started After Cloninig
 
-
-This is a basic API skeleton written in JavaScript ES2015. Very useful to building a RESTful web APIs for your front-end platforms like Android, iOS or JavaScript frameworks (Angular, Reactjs, etc).
-
-This project will run on **NodeJs** using **MongoDB** as database. I had tried to maintain the code structure easy as any beginner can also adopt the flow and start building an API. Project is open for suggestions, Bug reports and pull requests. 
+HNG task-3 : A dockerized microservice for sending sms notification and checking sms balance
 
 ## Features
 
--   Email helper ready just import and use.
--   Pre-defined response structures with proper status codes.
--   Included CORS.
--   Validations added.
--   Included API collection for Postman.
--   Light-weight project.
--   Test cases with [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/).
--   Code coverage with [Istanbuljs (nyc)](https://istanbul.js.org/).
--   Included CI (Continuous Integration) with [Travis CI](https://travis-ci.org).
--   Linting with [Eslint](https://eslint.org/).
+-
 
 ## Software Requirements
 
--   Node.js **8+**
--   MongoDB **3.6+** (Recommended **4+**)
+- Node.js **8+**
+- MongoDB **3.6+** (Recommended **4+**)
 
 ## Getting started with the Server
 
@@ -73,74 +60,66 @@ npm install
     ```bash
     cp .env.example .env
     ```
-3.  The file `.env` is already ignored, so you never commit your credentials.
-4.  Change the values of the file to your environment. Helpful comments added to `.env.example` file to understand the constants.
-## Project  structure
-```sh
-.
-├── app.js
-├── package.json
-├── bin
-│   └── www
-├── controllers
-│   ├── AuthController.js
-│   └── SmsController.js
-├── models
-│   ├── SmsModel.js
-│   └── UserModel.js
-├── routes
-│   ├── api.js
-│   ├── auth.js
-│   └── sms.js
-├── middlewares
-│   ├── jwt.js
-├── helpers
-│   ├── apiResponse.js
-│   ├── constants.js
-│   ├── mailer.js
-│   └── utility.js
-├── test
-│   ├── testConfig.js
-│   ├── auth.js
-│  
-└── public
-    ├── index.html
-    └── stylesheets
-        └── style.css
-```
-## How to run
 
-### Running  API server locally
+````
+## Common setup
+
+Clone the repo and install the dependencies.
 
 ```bash
-npm run dev
-```
-
-You will know server is running by checking the output of the command `npm run dev`
+git clone https://github.com/Elikdev/Team_Titians_task3.git
+cd Team_Titians_task3
+````
 
 ```bash
-Connected to mongodb:YOUR_DB_CONNECTION_STRING
-App is running ...
-
-Press CTRL + C to stop the process.
+npm install
 ```
-**Note:**  `YOUR_DB_CONNECTION_STRING` will be your MongoDB connection string.
 
-### Creating new models
+To run locally:
 
-If you need to add more models to the project just create a new file in `/models/` and use them in the controllers.
+Step 1: Set your .env variables
 
-### Creating new routes
+```
+ACCOUNT_SID=twillioaccountsid
+AUTH_TOKEN=twilioaccountauthtoken
+TWILIO_NUMBER=twilionumber
+MONGOURI=databaseurl
+```
 
-If you need to add more routes to the project just create a new file in `/routes/` and add it in `/routes/api.js` it will be loaded dynamically.
+Step 2: Run the script
 
-### Creating new controllers
+```bash
+npm run devStart
+```
 
-If you need to add more controllers to the project just create a new file in `/controllers/` and use them in the routes.
+## Use Docker
+
+To run this app as a docker container, you must have docker installed on your computer:
+
+Step 1: Clone the repo
+
+```bash
+git clone https://github.com/Elikdev/Team_Titians_task3.git
+```
+
+Step 2: Set your enviroment variables
+
+```
+ACCOUNT_SID=twillioaccountsid
+AUTH_TOKEN=twilioaccountauthtoken
+TWILIO_NUMBER=twilionumber
+MONGOURI=mongodb://mongo:27017/smsapp
+```
+
+Step 3: Run the Docker container locally:
+
+```bash
+docker-compose up
+```
 
 ## Tests
 
-### Running  Test Cases
+### Running Test Cases
 
 ```bash
 npm test
@@ -154,13 +133,10 @@ If you need to add more test cases to the project just create a new file in `/te
 
 ## ESLint
 
-### Running  Eslint
+### Running Eslint
 
 ```bash
 npm run lint
 ```
 
 You can set custom rules for eslint in `.eslintrc.json` file, Added at project root.
-
-
-
