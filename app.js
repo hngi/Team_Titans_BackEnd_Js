@@ -7,6 +7,8 @@ var indexRouter = require("./routes/index");
 var apiRouter = require("./routes/api");
 var apiResponse = require("./helpers/apiResponse");
 var cors = require("cors");
+const bodyParser = require('body-parser');
+
 
 // DB connection
 var MONGODB_URL = process.env.MONGODB_URL;
@@ -40,6 +42,11 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //To allow cross-origin requests
 app.use(cors());
+
+// Body Parser
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.raw());
 
 //Route Prefixes
 app.use("/", indexRouter);

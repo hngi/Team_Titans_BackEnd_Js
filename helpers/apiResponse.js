@@ -1,7 +1,7 @@
 exports.successResponse = function (res, msg) {
 	var data = {
 		status: 1,
-		message: msg
+		data: msg
 	};
 	return res.status(200).json(data);
 };
