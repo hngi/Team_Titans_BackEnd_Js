@@ -10,6 +10,9 @@ const accountSid = config.ACCOUNT_SID;
 const authToken = config.AUTH_TOKEN;
 const client = require("twilio")(accountSid, authToken);
 
+
+var util = require('util');
+
 /**
  * Retrieve Account Balance.
  *
@@ -145,4 +148,58 @@ exports.smsHistory = [
       }));
    
   },
+];
+
+/**
+ * Send SMS TO MULTIPLE PHONE NUMBERS.
+ * 
+ * @param {comma separated list of numbers}   mobile_nums
+ *
+ * @returns {Object}
+ */
+exports.sendMultiple = [
+	async function (req, res) {
+		var { message, mobile_nums } = req.body;
+		var phone_numbers = mobile_nums.split(',');
+		console.log(util.inspect(phone_numbers));
+		phone_numbers.forEach(
+			phone => {
+				if (!message || message == " ") {
+					return res.status(statusCode.PRECONDITION_FAILED).json({
+						message: "message field is empty",
+					});
+				}
+				if (!mobile_nums || mobile_nums == " ") {
+					return res.status(statusCode.PRECONDITION_FAILED).json({
+						message: "mobile number field is empty",
+					});
+				}
+				try {
+					//Setup Twilo and send message
+					var smsOptions = {
+						body: message,
+						from: config.TWILIO_NUMBER,
+						to: phone,
+					};
+					const sentSms =  client.messages.create(smsOptions);
+					if (sentSms) {
+						const sms = new Sms({
+							message,
+							phone,
+						});
+						const savedSms =  sms.save();
+						console.log("message sent and saved", savedSms);
+						return res.status(statusCode.OK).json({
+							message: "message sent successfully",
+							sentSms: sentSms.sid,
+						});
+					}
+				}catch (err) {
+					console.log(`error in sending message >>> ${err.message}`);
+					//throw error in json response with status 500.
+					return Promise.reject(err);
+					// return apiResponse.ErrorResponse(res, err.message);
+				}
+		});
+	},
 ];

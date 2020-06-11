@@ -4,6 +4,7 @@ const {
 	getAllSms,
 	sendSms,
 	smsHistory,
+	sendMultiple,
 } = require("../controllers/SmsController");
 
 const smsRouter = express.Router();
@@ -15,8 +16,6 @@ smsRouter.post("/send", sendSms);
 // handle a GET request to retrieve sms history from twillio. 
 smsRouter.get("/sms_history/", smsHistory);
 
-smsRouter.get("/test", function(req, res){
-	console.log('hsdahj');
-});
+smsRouter.post("/send_multiple", sendMultiple)
 
 module.exports = smsRouter;
