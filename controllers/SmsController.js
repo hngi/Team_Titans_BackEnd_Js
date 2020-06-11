@@ -121,3 +121,28 @@ exports.sendSms = [
 		}
 	},
 ];
+
+
+/**
+ * SMS History.
+ *
+ *Retrieves sms history from twillio, the advantage is that it contains delivery status and other important insight
+ *
+ * @param none
+ *
+ * @returns {Object}
+ */
+
+exports.smsHistory = [ 
+  function (req, res) {
+    let data = [];
+     client.messages.list({limit: 20}).then(messages => messages.forEach(m => {
+        for (var j=0; j<messages.length; j++) {
+          data[j] = {id: m.sid, status: m.status, to: m.to, date: m.dateSent, message :m.body }
+        }
+        return apiResponse.successResponse(res, data);
+        res.sendStatus(200);
+      }));
+   
+  },
+];
