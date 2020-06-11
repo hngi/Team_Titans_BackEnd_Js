@@ -1,9 +1,14 @@
-var express = require("express");
-const SmsController = require("../controllers/SmsController");
+const express = require("express");
+const {
+	getAccountBalance,
+	getAllSms,
+	sendSms,
+} = require("../controllers/SmsController");
 
-var router = express.Router();
+const smsRouter = express.Router();
 
-router.get("/", SmsController.getAccountBalance);
-router.post("/send/:phone", SmsController.sendSms);
+smsRouter.get("/balance", getAccountBalance);
+smsRouter.get("/all", getAllSms);
+smsRouter.post("/send", sendSms);
 
-module.exports = router;
+module.exports = smsRouter;
