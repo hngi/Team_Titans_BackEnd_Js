@@ -1,0 +1,156 @@
+{
+    "openapi":"3.0.2",
+    "info": {
+        "title":"sms docs",
+        "version":"0.0.1"
+    },
+    "servers": [
+        {"url":"http://localhost:3000/api/v1/sms"}
+    ],
+    "paths": {
+        "/send": {
+            "post": {
+                "summary": "send message to user",
+                "tags": ["sms"],
+                "requestBody":{
+                    "$ref": "#/components/requestBodies/smsBody"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type":"string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": ["code", "message"]
+                                }
+                            }
+                        }
+                    },
+                    "412": {
+                        "$ref": "#/components/responses/Precondition"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/ServerError"
+                    }
+                }
+            }  
+        },
+        "/balance": {
+            "get": {
+                "summary": "returns user credit balance",
+                "tags": ["sms"],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/BadRequest"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/ServerError"
+                    }
+                }
+            }
+        },
+        "/all": {
+            "get": {
+                "summary": "returns all message sent to users",
+                "tags": ["sms"],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/ServerError"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "requestBodies":{
+            "smsBody": {
+                "description": "it contains sms information to be sent",
+                "required":true,
+                "content": {
+                    "application/json": {
+                        "schema":{
+                            "$ref": "#/components/schemas/Sms"
+                        }
+                    }
+                }
+            }
+        },
+        "responses": {
+            "Precondition": {
+                "description": "Precondition Failed",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        }
+                    }
+                }
+            },
+            "BadRequest": {
+                "description": "Bad Request",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        }
+                    }
+                }
+            },
+            "ServerError": {
+                "description": "Internal Server Error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "schemas": {
+            "Sms": {
+                "type": "object",
+                "properties":{
+                    "message": {
+                        "type":"string"
+                    },
+                    "mobile_num": {
+                        "type":"string"
+                    }
+                },
+                "example": {
+                    "message": "your confirmation pin is 1234",
+                    "mobile_num": "+23481466678"
+                },
+                "required": ["message", "mobile_num"]
+            },
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type":"string"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "required": ["code", "message"]
+            }
+        }
+    }
+}
