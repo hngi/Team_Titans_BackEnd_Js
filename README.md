@@ -67,7 +67,7 @@ npm install
 Clone the repo and install the dependencies.
 
 ```bash
-git clone https://github.com/Elikdev/Team_Titians_task3.git
+git clone https://github.com/hngi/Team_Titans_BackEnd_Js.git
 cd Team_Titians_task3
 ````
 
@@ -99,7 +99,7 @@ To run this app as a docker container, you must have docker installed on your co
 Step 1: Clone the repo
 
 ```bash
-git clone https://github.com/Elikdev/Team_Titians_task3.git
+git clone https://github.com/hngi/Team_Titans_BackEnd_Js.git
 ```
 
 Step 2: Set your enviroment variables
