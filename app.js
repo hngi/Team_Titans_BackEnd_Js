@@ -29,8 +29,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
 //Route Prefixes
-app.use("/web/v1", indexRouter);
-app.use("/api/v1/", auth, smsRouter);
+app.use("/api/v1", indexRouter);
+app.use("/api/v1/sms", auth, smsRouter);
 
 // throw 404 if URL not found
 
