@@ -1,20 +1,40 @@
 {
-  "name": "twilio-sms-api",
+
+  "name": "team_titan_sms_micro_service_api",
   "version": "1.0.0",
-  "description": "This is a nodejs server",
-  "main": "app.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node ./bin/www",
+    "devStart": "nodemon ./bin/www",
+    "test": "nyc _mocha --timeout 10000 --exit --report lcovonly -- -R spec",
+    "lint": "eslint --fix --config .eslintrc.json \"**/*.js\""
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/toyyibat1/Team_Titans_BackEnd_Js.git"
-  },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
+    "codacy-coverage": "^3.4.0",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "express": "~4.16.0",
+    "express-validator": "^6.2.0",
+    "http-status": "^1.4.2",
+    "jsonwebtoken": "^8.5.1",
+    "mocha-lcov-reporter": "^1.3.0",
+    "moment": "^2.24.0",
+    "mongoose": "^5.7.6",
+    "morgan": "~1.9.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5",
+    "swagger-ui-express": "^4.1.4",
     "twilio": "^3.45.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "eslint": "^6.5.1",
+    "mocha": "^6.2.2",
+    "nodemon": "^1.19.4",
+    "nyc": "^14.1.1"
+
   }
 }

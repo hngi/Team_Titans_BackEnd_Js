@@ -1,22 +1,53 @@
-// var twilio = require('twilio');
+// develop
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const swaggerUi = require("swagger-ui-express");
+require("dotenv").config();
+const indexRouter = require("./routes/index");
+const smsRouter = require("./routes/sms");
+const apiResponse = require("./helpers/apiResponse");
+const swaggerDocument = require("./docs/swagger.json");
+const mongoDbConnection =require("./configs/dbconfig");
+const cors = require("cors");
+const auth = require("./middleware/auth");
+const jwt = require('jsonwebtoken');
 
+//load the database
+mongoDbConnection();
 
-const express = require('express')
-const app = express()
+const app = express();
 
-app.get('/sendSMS', function(req, res) {
-    var accountSid = process.env.TWILIO_ACCOUNT_Sid; // Your Account SID from www.twilio.com/console
-    var authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
-    
-    var twilio = require('twilio');
-    var client = new twilio(accountSid, authToken);
-    
-    client.messages.create({
-        body: 'This is test app using twilio',
-        to: '+2348089681015',  // Text this number
-        from: '+12057724917' // From a valid Twilio number
-    })
-    .then((message) => res.send(`message with this id: ${JSON.stringify(message)} was sent`));
-})
+//don't show the log when it is test
+if (process.env.NODE_ENV !== "test") {
+	app.use(logger("dev"));
+}
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "public")));
 
-app.listen(3000);
+// init swagger doc
+app.use("/api/v1/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+//To allow cross-origin requests
+app.use(cors());
+
+//Route Prefixes
+app.use("/web", indexRouter);
+app.use("/v1", auth, smsRouter);
+
+// throw 404 if URL not found
+
+app.all("*", function (req, res) {
+	return apiResponse.notFoundResponse(res, "Page not found");
+});  
+
+app.use((err, req, res) => {
+	if (err.name == "UnauthorizedError") {
+		return apiResponse.unauthorizedResponse(res, err.message);
+	}
+});
+
+module.exports = app;
+// master
