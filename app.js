@@ -10,6 +10,8 @@ const apiResponse = require("./helpers/apiResponse");
 const swaggerDocument = require("./docs/swagger.json");
 const mongoDbConnection =require("./configs/dbconfig");
 const cors = require("cors");
+const auth = require("./middleware/auth");
+const jwt = require('jsonwebtoken');
 
 //load the database
 mongoDbConnection();
@@ -32,7 +34,7 @@ app.use(cors());
 
 //Route Prefixes
 app.use("/api/v1", indexRouter);
-app.use("/api/v1/sms", smsRouter);
+app.use("/api/v1/sms", auth, smsRouter);
 
 // throw 404 if URL not found
 
