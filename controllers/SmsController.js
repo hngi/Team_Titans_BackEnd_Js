@@ -187,15 +187,15 @@ exports.sendMultiple = [
 						const savedSms =  sms.save();
 						console.log("message sent and saved", savedSms);
 						return res.status(statusCode.OK).json({
-							message: "message sent successfully",
+							messages: "message sent successfully",
 							sentSms: sentSms.sid,
 						});
 					}
 				}catch (err) {
-					console.log(`error in sending message >>> ${err.message}`);
+					// console.log(`error in sending message >>> ${err.message}`);
 					//throw error in json response with status 500.
-					return Promise.reject(err);
 					// return apiResponse.ErrorResponse(res, err.message);
+
 				}
 		});
 	},
