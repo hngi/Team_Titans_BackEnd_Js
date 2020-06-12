@@ -1,13 +1,13 @@
-version: '2'
+version: '3'
 
 services:
   api:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+    container_name: team-titans-sms-app
+    restart: always
+    build: .
     ports:
       - '3000:3000'
-    depends_on:
+    links:
       - mongo
     env_file: .env
   mongo:

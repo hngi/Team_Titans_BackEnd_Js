@@ -1,8 +1,13 @@
 FROM node:10
-RUN mkdir -p /user/src/app
+
 WORKDIR /usr/src/app
-ADD . /usr/src/app
-RUN chmod +x /usr/src/app/run.sh
+
+COPY package*.json .
+
 RUN npm install
+
+COPY . .
+
 EXPOSE 3000
+
 CMD ./run.sh
