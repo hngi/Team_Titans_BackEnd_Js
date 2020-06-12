@@ -1,8 +1,8 @@
 define({ "api": [
   {
     "type": "POST",
-    "url": "/api/v1/send",
-    "title": "multiple",
+    "url": "/v1/send_multiple",
+    "title": "send multiple",
     "name": "sendMultiple",
     "group": "SEND_SMS",
     "description": "<p>Sends SMS to multiple phone number(comma delimited list) specied in the request body</p>",
@@ -14,14 +14,21 @@ define({ "api": [
             "type": "string",
             "optional": false,
             "field": "message",
-            "description": "<p>Expects 'message' key in the request body.</p>"
+            "description": "<p>-body || Expects 'message' key in the request body.</p>"
           },
           {
             "group": "Parameter",
             "type": "string",
             "optional": false,
             "field": "mobile_nums",
-            "description": "<p>Expects mobile_nums(comma delimited list) key in the request body.</p>"
+            "description": "<p>-body || Expects mobile_nums(comma delimited list) key in the request body.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "authorization_token",
+            "description": "<p>-header || JSON WEB Token signed payload which contains: company_id, account_id. The payload should be signed with a predefined secret_key stored in the config settings</p>"
           }
         ]
       }
@@ -59,12 +66,23 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
+            "field": "AuthError",
+            "description": "<p>Invalid authentication token.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
             "field": "ErrorOccured",
             "description": "<p>An error occured while processing your request.</p>"
           }
         ]
       },
       "examples": [
+        {
+          "title": "authError:",
+          "content": "HTTP/1.1 401 No Response\n{\n  \"error\": \"Invalid authentication token\"\n}",
+          "type": "json"
+        },
         {
           "title": "PRECONDITION_FAILED:",
           "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"message field is empty\"\n}\nHTTP/1.1 404 Not Found\n{\n  \"error\": \"mobile_num field is empty\"\n}",
@@ -78,12 +96,12 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "bin/example.js",
+    "filename": "bin/api_doc.js",
     "groupTitle": "SEND_SMS"
   },
   {
     "type": "POST",
-    "url": "/api/v1/send",
+    "url": "/v1/send",
     "title": "single",
     "name": "sendSms",
     "group": "SEND_SMS",
@@ -96,14 +114,21 @@ define({ "api": [
             "type": "string",
             "optional": false,
             "field": "message",
-            "description": "<p>Expects 'message' key in the request body.</p>"
+            "description": "<p>-body || Expects 'message' key in the request body.</p>"
           },
           {
             "group": "Parameter",
             "type": "string",
             "optional": false,
             "field": "mobile_num",
-            "description": "<p>Expects 'mobile_num' key in the request body.</p>"
+            "description": "<p>-body || Expects 'mobile_num' key in the request body.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "authorization_token",
+            "description": "<p>-header || JSON WEB Token signed payload which contains: company_id, account_id. The payload should be signed with a predefined secret_key stored in the config settings</p>"
           }
         ]
       }
@@ -141,12 +166,23 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
+            "field": "AuthError",
+            "description": "<p>Invalid authentication token.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
             "field": "ErrorOccured",
             "description": "<p>An error occured while processing your request.</p>"
           }
         ]
       },
       "examples": [
+        {
+          "title": "authError:",
+          "content": "HTTP/1.1 401 No Response\n{\n  \"error\": \"Invalid authentication token\"\n}",
+          "type": "json"
+        },
         {
           "title": "PRECONDITION_FAILED:",
           "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": \"message field is empty\"\n}\nHTTP/1.1 404 Not Found\n{\n  \"error\": \"mobile_num field is empty\"\n}",
@@ -160,12 +196,12 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "bin/example.js",
+    "filename": "bin/api_doc.js",
     "groupTitle": "SEND_SMS"
   },
   {
     "type": "get",
-    "url": "/api/v1/balance",
+    "url": "/v1/balance",
     "title": "",
     "name": "getAccountBalance",
     "group": "SMS_Account_Balance",
@@ -174,10 +210,10 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "null",
+            "type": "string",
             "optional": false,
-            "field": "none",
-            "description": "<p>endpoint call does not require any param.</p>"
+            "field": "authorization_token",
+            "description": "<p>JSON WEB Token signed payload which contains: company_id, account_id, PS: The payload should be signed with a predefined secret_key stored in the config settings PS: The authorization_token is to be included in the request header</p>"
           }
         ]
       }
@@ -208,6 +244,12 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
+            "field": "AuthError",
+            "description": "<p>Invalid authentication token.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
             "field": "ErrorOccured",
             "description": "<p>An error occured while processing your request.</p>"
           }
@@ -222,12 +264,12 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "bin/example.js",
+    "filename": "bin/api_doc.js",
     "groupTitle": "SMS_Account_Balance"
   },
   {
     "type": "get",
-    "url": "api/v1/all",
+    "url": "/v1/all",
     "title": "Outbox",
     "name": "getAllSms",
     "group": "SMS_Records",
@@ -237,10 +279,10 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "null",
+            "type": "string",
             "optional": false,
-            "field": "none",
-            "description": "<p>endpoint call does not require any param.</p>"
+            "field": "authorization_token",
+            "description": "<p>-header || JSON WEB Token signed payload which contains: company_id, account_id. The payload should be signed with a predefined secret_key stored in the config settings</p>"
           }
         ]
       }
@@ -286,13 +328,43 @@ define({ "api": [
         }
       ]
     },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "AuthError",
+            "description": "<p>Invalid authentication token.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ErrorOccured",
+            "description": "<p>An error occured while processing your request.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "authError:",
+          "content": "HTTP/1.1 401 No Response\n{\n  \"error\": \"Invalid authentication token\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 500 No Response\n{\n  \"error\": \"error in sending message\"\n}",
+          "type": "json"
+        }
+      ]
+    },
     "version": "0.0.0",
-    "filename": "bin/example.js",
+    "filename": "bin/api_doc.js",
     "groupTitle": "SMS_Records"
   },
   {
     "type": "get",
-    "url": "api/v1/sms_history",
+    "url": "/v1/sms_history",
     "title": "Sent",
     "name": "smsHistory",
     "group": "SMS_Records",
@@ -302,10 +374,10 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "null",
+            "type": "string",
             "optional": false,
-            "field": "none",
-            "description": "<p>endpoint call does not require any param.</p>"
+            "field": "authorization_token",
+            "description": "<p>-header || JSON WEB Token signed payload which contains: company_id, account_id. The payload should be signed with a predefined secret_key stored in the config settings</p>"
           }
         ]
       }
@@ -365,8 +437,38 @@ define({ "api": [
         }
       ]
     },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "AuthError",
+            "description": "<p>Invalid authentication token.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ErrorOccured",
+            "description": "<p>An error occured while processing your request.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "authError:",
+          "content": "HTTP/1.1 401 No Response\n{\n  \"error\": \"Invalid authentication token\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 500 No Response\n{\n  \"error\": \"error in sending message\"\n}",
+          "type": "json"
+        }
+      ]
+    },
     "version": "0.0.0",
-    "filename": "bin/example.js",
+    "filename": "bin/api_doc.js",
     "groupTitle": "SMS_Records"
   }
 ] });

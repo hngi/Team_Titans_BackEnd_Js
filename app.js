@@ -33,8 +33,8 @@ app.use("/api/v1/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(cors());
 
 //Route Prefixes
-app.use("/api/v1", indexRouter);
-app.use("/api/v1/sms", auth, smsRouter);
+app.use("/web", indexRouter);
+app.use("/v1", auth, smsRouter);
 
 // throw 404 if URL not found
 
