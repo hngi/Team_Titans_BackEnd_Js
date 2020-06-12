@@ -140,3 +140,10 @@ npm run lint
 ```
 
 You can set custom rules for eslint in `.eslintrc.json` file, Added at project root.
+
+### Generate API DOCS
+1. Modify api_doc.js
+2. run the command below
+```bash
+apidoc -i bin/ -o apidoc/
+```

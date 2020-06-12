@@ -11,8 +11,6 @@ const authToken = config.AUTH_TOKEN;
 const client = require("twilio")(accountSid, authToken);
 
 
-var util = require('util');
-
 /**
  * Retrieve Account Balance.
  *
@@ -161,7 +159,6 @@ exports.sendMultiple = [
 	async function (req, res) {
 		var { message, mobile_nums } = req.body;
 		var phone_numbers = mobile_nums.split(',');
-		console.log(util.inspect(phone_numbers));
 		phone_numbers.forEach(
 			phone => {
 				if (!message || message == " ") {
