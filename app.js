@@ -8,6 +8,8 @@ const smsRouter = require("./routes/sms");
 const apiResponse = require("./helpers/apiResponse");
 const mongoDbConnection =require("./configs/dbconfig");
 const cors = require("cors");
+const auth = require("./middleware/auth");
+const jwt = require('jsonwebtoken');
 
 //load the database
 mongoDbConnection();
@@ -27,8 +29,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
 //Route Prefixes
-app.use("/api/v1", indexRouter);
-app.use("/api/v1/sms", smsRouter);
+app.use("/web/v1", indexRouter);
+app.use("/api/v1/", auth, smsRouter);
 
 // throw 404 if URL not found
 
