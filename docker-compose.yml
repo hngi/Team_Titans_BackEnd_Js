@@ -1,20 +1,18 @@
-version: '2'
+version: '3'
 
 services:
   api:
     container_name: team-titans-sms-app
     restart: always
     build: .
+    command: npm start
     ports:
       - '3000:3000'
     links:
       - mongo
     env_file: .env
   mongo:
+    container_name: mongo
     image: mongo
     ports:
       - '27017:27017'
-    volumes:
-      - data-volume:/data/db
-volumes:
-  data-volume:
