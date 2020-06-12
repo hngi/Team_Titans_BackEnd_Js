@@ -16,6 +16,6 @@ smsRouter.post("/send", sendSms);
 // handle a GET request to retrieve sms history from twillio. 
 smsRouter.get("/sms_history/", smsHistory);
 
-smsRouter.post("/send_multiple", sendMultiple)
+smsRouter.post("/send_multiple", sendMultiple);
 
 module.exports = smsRouter;
