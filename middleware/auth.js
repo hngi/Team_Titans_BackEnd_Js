@@ -9,14 +9,14 @@ module.exports = (req, res, next) => {
     const accountId = decodedToken.account_id;
     if (!decodedToken) {
       res.status(401).json({
-        error: 'Invalid request!'
+        error: 'Unauthorized request!'
       });
     } else {
       next();
     }
   } catch {
     res.status(401).json({
-      error: 'Invalid request!'
+      error: 'Unauthorized request!'
     });
   }
 };
