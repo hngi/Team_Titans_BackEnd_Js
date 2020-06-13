@@ -8,7 +8,9 @@ module.exports = (req, res, next) => {
     const companyName = decodedToken.company_name;
     const accountId = decodedToken.account_id;
     if (!decodedToken) {
-      console.log( 'Invalid AUTH');
+      res.status(401).json({
+        error: 'Invalid request!'
+      });
     } else {
       next();
     }
