@@ -1,8 +1,8 @@
 MONGODB_URL=YourConnectionString
 
-TWILIO_ACCOUNT_SID=twillioaccountsid
-TWILIO_AUTH_TOKEN=twilioaccountauthtoken
-TWILIO_NUMBER=twilionumber
-MONGOURI=mongodb://mongo:27017/smsapp
+TWILIO_ACCOUNT_SID=AC7208d58e1feebf9261f2d0953eebf4b0
+TWILIO_AUTH_TOKEN=d94a85f84cf3351cfd0105a154f78f66
+TWILIO_NUMBER=+12057721209
+MONGOURI=mongodb://mongo:27020/smsapp
 
-PORT=3000
+PORT=12055
