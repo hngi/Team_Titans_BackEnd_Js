@@ -196,3 +196,43 @@
  *       "error": "error in sending message"
  *     }
  */
+
+   /**
+ * @api {get} /v1/schedule Schedule
+ * @apiName smsSchedule
+ * @apiGroup Schedule SMS
+ * @apiDescription Schedule sms to be sent at a latter date
+ *
+ * @apiParam {string} message -body || Expects 'message' key in the request body.
+ * @apiParam {string} mobile_nums -body || Expects mobile_nums(comma delimited list) key in the request body.
+ * @apiParam {string} due_date -body || Expects due date for sms delivery (format: 17/06/2020) key in the request body.
+  * @apiParam {string} due_time -body || Expects due time for sms delivery (format: 22:59) key in the request body.
+ * @apiParam {string} authorization_token -header || JSON WEB Token signed payload which contains: company_id, account_id.
+ * The payload should be signed with a predefined secret_key stored in the config settings
+ *
+ * @apiSuccess {integer} status res.status.
+ * @apiSuccess {String} message  "message has been scheduled successfully and will run on [] at []".
+
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "status": 1
+ *       "message": ""message has been scheduled successfully and will run on 17/06/2020 at 22:59""
+
+ *     }
+ *
+ * @apiError AuthError Invalid authentication token.
+ * @apiError ErrorOccured An error occured while processing your request.
+ *
+ * @apiErrorExample authError:
+ *     HTTP/1.1 401 No Response
+ *     {
+ *       "error": "Invalid authentication token"
+ *     }
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 500 No Response
+ *     {
+ *       "error": "error in scheduling your message"
+ *     }
+ */
